@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# get the full path of the installation dir
+SCRIPT_DIR=$(dirname `readlink -f "$0"`)
+REPO_DIR="${SCRIPT_DIR%/bin}"
+
+# Move to root of the project
+cd "$REPO_DIR"
+# Build the binary
+bun run build
+
+echo "# sfd
+export SFD_PATH=\"${REPO_DIR}\"
+PATH=\"\${PATH}:\${SFD_PATH}/build\"
+" >> "${HOME}/.zshrc"
+
+echo -e "\033[32mInstallation effectué avec succès\033[0m"

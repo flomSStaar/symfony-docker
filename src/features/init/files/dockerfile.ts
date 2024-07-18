@@ -1,0 +1,43 @@
+import { StringBuilder } from '@/utils/string-builder'
+
+export function getDockerfile() {
+  const builder = new StringBuilder()
+
+  builder
+    .appendLine('ARG PHP_VERSION')
+    .newLine()
+    .appendLine('FROM php:${PHP_VERSION}-alpine')
+    .newLine()
+    .appendLine('ARG PHP_EXTENSIONS')
+    .newLine()
+    .appendLine('RUN apk add --no-cache git bash')
+    .newLine()
+    .appendLine('# Add PHP extensions')
+    .appendLine(
+      'ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/',
+    )
+    .appendLine('RUN chmod +x /usr/local/bin/install-php-extensions && \\')
+    .appendLine('    install-php-extensions ${PHP_EXTENSIONS}')
+    .newLine()
+    .appendLine('# Composer')
+    .appendLine(
+      'RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer --version 2.6.6',
+    )
+    .newLine()
+    .appendLine('# Symfony CLI')
+    .appendLine('RUN curl -sS https://get.symfony.com/cli/installer | bash  \\')
+    .appendLine('    && mv /root/.symfony5/bin/symfony /usr/local/bin/symfony \\')
+    .appendLine('    && symfony server:ca:install')
+    .newLine()
+    .appendLine('COPY --chmod=755 docker-entrypoint.sh /docker-entrypoint.sh')
+    .newLine()
+    .appendLine('COPY php.ini /usr/local/etc/php/conf.d/')
+    .newLine()
+    .appendLine('WORKDIR /var/www')
+    .newLine()
+    .appendLine('ENTRYPOINT [ "/docker-entrypoint.sh" ]')
+    .newLine()
+    .appendLine('CMD [ "symfony", "server:start", "--port=80" ]')
+
+  return builder.toString()
+}

@@ -1,0 +1,5 @@
+# MailHog
+
+## Fonctionnement
+
+## Variables
