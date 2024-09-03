@@ -37,7 +37,7 @@ usage() {
    echo "- php                    PHP, Symfony service"
    echo "- db                     Database service"
    echo "- node                   Node service (optional)"
-   echo "- mail                   Mailhog service (optional)"
+   echo "- mail                   Mail service (optional)"
    echo "- minio                  Minio (S3) service (optional)"
    echo "- influxdb               InfluxDb service (optional)"
    echo "- pdf                    Gotenberg (PDF) service (optional)"
