@@ -4,7 +4,6 @@ import { Document, isMap, isScalar, isSeq, Pair, parseDocument, YAMLMap, YAMLSeq
 export class ComposeBuilder {
   private readonly compose: Document<Node, true>
 
-  private readonly version: string
   private readonly services: YAMLMap
   private readonly volumes: YAMLMap
 
@@ -13,14 +12,9 @@ export class ComposeBuilder {
     ENVIRONMENT: 'environment',
   }
 
-  constructor(document = new Document(), version: string = '3.9') {
+  constructor(document = new Document()) {
     this.compose = document
 
-    if (document.has('version')) {
-      this.version = document.get('version') as string
-    } else {
-      this.version = version
-    }
     if (document.has('volumes')) {
       this.volumes = document.get('volumes') as YAMLMap
     } else {
@@ -176,10 +170,6 @@ export class ComposeBuilder {
   }
 
   toString(): string {
-    if (!this.compose.has('version')) {
-      this.compose.set('version', this.version)
-    }
-
     this.compose.set('volumes', this.volumes)
     this.compose.set('services', this.services)
 
