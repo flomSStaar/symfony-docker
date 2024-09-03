@@ -32,8 +32,8 @@ export class PhpService extends AbstractService {
           [`${PhpService.CONSTANTS.PHP_EXTENSIONS}`]: `$\{${PhpService.CONSTANTS.PHP_EXTENSIONS}}`,
         },
       },
-      volumes: ['.:/var/www'],
-      ports: [`$\{${PhpService.CONSTANTS.WEB_PORT}:-8000}:80`],
+      volumes: ['.:/var/www/html'],
+      ports: [`$\{${PhpService.CONSTANTS.WEB_PORT}:-8000}:8000`],
     })
   }
 
