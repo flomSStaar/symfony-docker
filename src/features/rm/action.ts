@@ -12,7 +12,7 @@ export async function removeAction() {
   const projectPath = '.'
   await assertSymfonyProjectPath(projectPath)
 
-  const composeFilename = `${projectPath}/compose.yml`
+  const composeFilename = `${projectPath}/compose.local.yml`
   const envFilename = `${projectPath}/.env`
   const envLocalFilename = `${projectPath}/.env.local`
 

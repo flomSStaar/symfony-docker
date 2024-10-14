@@ -1,7 +1,7 @@
 export function getSymfonyScript() {
   return `#!/usr/bin/env bash
 
-DC="docker compose --env-file .env --env-file .env.local"
+DC="docker compose -f compose.local.yml --env-file .env --env-file .env.local"
 DE="$DC exec"
 DR="$DC run --rm"
 

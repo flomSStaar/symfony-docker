@@ -13,7 +13,7 @@ export async function initAction() {
   const installPath = '.'
   await assertSymfonyProjectPath(installPath)
 
-  const composeFilename = `${installPath}/compose.yml`
+  const composeFilename = `${installPath}/compose.local.yml`
   if (await Bun.file(composeFilename).exists()) {
     throw new Error('This project is already configured with docker')
   }

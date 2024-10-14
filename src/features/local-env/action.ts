@@ -7,7 +7,7 @@ export async function localEnvAction() {
   const projectPath = '.'
   await assertSymfonyProjectPath(projectPath)
 
-  const composeFile = Bun.file(`${projectPath}/compose.yml`)
+  const composeFile = Bun.file(`${projectPath}/compose.local.yml`)
   if (!(await composeFile.exists())) {
     throw new Error('The project is not initialized with Docker, try to run `sfd init` first.')
   }

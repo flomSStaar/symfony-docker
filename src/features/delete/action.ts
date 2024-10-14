@@ -4,7 +4,7 @@ import { exists } from 'fs/promises'
 import { unlink } from 'node:fs/promises'
 
 const DELETE_FILES: string[] = [
-  'compose.yml',
+  'compose.local.yml',
   '.dockerignore',
   'sf',
   'docker/dev/Dockerfile',
