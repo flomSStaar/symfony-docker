@@ -26,6 +26,10 @@ export class MailpitService extends AbstractService {
       image: 'axllent/mailpit:v1.18.3',
       ports: [`$\{${MailpitService.CONSTANTS.MAIL_PORT}:-8025}:8025`],
       volumes: [`${MailpitService.COMPOSE_VOLUME_KEY}:/data`],
+      environment: {
+        MP_SMTP_AUTH_ACCEPT_ANY: 1,
+        MP_SMTP_AUTH_ALLOW_INSECURE: 1,
+      },
     })
   }
 
