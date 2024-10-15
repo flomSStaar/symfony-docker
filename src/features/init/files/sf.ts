@@ -20,6 +20,7 @@ usage() {
    echo
    echo "commands:"
    echo "- dev                    Launch the development server"
+   echo "- build                  Build the image of the compose file"
    echo "- start [service]        Start the development or the specified service"
    echo "- stop [service]         Stop the development server or the specified service"
    echo "- restart [service]      Restart the development server or the specified service"
@@ -72,6 +73,9 @@ case "$COMMAND" in
   "dev")
   trap handle_containers_ctrlc SIGINT
   $DC up --build --force-recreate "$@"
+  ;;
+  "build")
+  $DC build "$@"
   ;;
   "start")
   $DC up --build --force-recreate -d "$@"

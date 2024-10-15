@@ -6,7 +6,7 @@ export function getDockerfile() {
   builder
     .appendLine('ARG PHP_VERSION=8.2')
     .newLine()
-    .appendLine('FROM php:${PHP_VERSION}-alpine')
+    .appendLine('FROM php:${PHP_VERSION}-alpine3.20')
     .newLine()
     .appendLine('ARG PHP_EXTENSIONS=""')
     .newLine()
@@ -14,14 +14,14 @@ export function getDockerfile() {
     .newLine()
     .appendLine('# Add PHP extensions')
     .appendLine(
-      'ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/',
+      'ADD https://github.com/mlocati/docker-php-extension-installer/releases/download/2.5.2/install-php-extensions /usr/local/bin/',
     )
     .appendLine('RUN chmod +x /usr/local/bin/install-php-extensions && \\')
     .appendLine('    install-php-extensions ${PHP_EXTENSIONS}')
     .newLine()
     .appendLine('# Composer')
     .appendLine(
-      'RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer --version 2.6.6',
+      'RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer --version 2.8.1',
     )
     .newLine()
     .appendLine('# Symfony CLI')
@@ -36,7 +36,7 @@ export function getDockerfile() {
     .newLine()
     .appendLine('ENTRYPOINT [ "/docker-entrypoint.sh" ]')
     .newLine()
-    .appendLine('CMD [ "symfony", "server:start" ]')
+    .appendLine('CMD [ "symfony", "server:start", "--listen-ip=0.0.0.0" ]')
 
   return builder.toString()
 }
