@@ -6,6 +6,7 @@ import { MinioService } from '@/services/minio-service'
 import { InfluxdbService } from '@/services/influxdb-service'
 import { GotenbergService } from '@/services/gotenberg-service'
 import { MailpitService } from '@/services/mailpit-service'
+import { PostgresqlService } from '@/services/postgresql-service'
 
 export const AVAILABLE_SYMFONY_SERVICES = [
   new PhpService(),
@@ -16,4 +17,5 @@ export const AVAILABLE_SYMFONY_SERVICES = [
   new InfluxdbService(),
   new GotenbergService(),
   new MailpitService(),
+  new PostgresqlService(),
 ]
