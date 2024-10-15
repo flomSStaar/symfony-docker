@@ -27,7 +27,7 @@ export class MinioService extends AbstractService {
 
   addToCompose(builder: ComposeBuilder): void {
     builder.addService(this.composeKey, {
-      image: 'minio/minio:RELEASE.2024-03-30T09-41-56Z',
+      image: 'minio/minio:RELEASE.2024-10-02T17-50-41Z',
       ports: [
         `$\{${MinioService.CONSTANTS.CONSOLE_PORT}:-8900}:8900`,
         `$\{${MinioService.CONSTANTS.API_PORT}:-9000}:9000`,
