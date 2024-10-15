@@ -1,5 +1,5 @@
 import { PhpService } from '@/services/php-service'
-import { DatabaseService } from '@/services/database-service'
+import { MariadbService } from '@/services/mariadb-service'
 import { NodeService } from '@/services/node-service'
 import { MailhogService } from '@/services/mailhog-service'
 import { MinioService } from '@/services/minio-service'
@@ -9,7 +9,7 @@ import { MailpitService } from '@/services/mailpit-service'
 
 export const AVAILABLE_SYMFONY_SERVICES = [
   new PhpService(),
-  new DatabaseService(),
+  new MariadbService(),
   new NodeService(),
   new MailhogService(),
   new MinioService(),
