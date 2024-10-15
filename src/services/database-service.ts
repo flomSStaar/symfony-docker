@@ -22,7 +22,7 @@ export class DatabaseService extends AbstractService {
 
   addToCompose(builder: ComposeBuilder): void {
     builder.addService(this.composeKey, {
-      image: 'mariadb:11.2',
+      image: 'mariadb:11.5.2',
       ports: [`$\{${DatabaseService.CONSTANTS.DB_PORT}:-3306}:3306`],
       environment: {
         MARIADB_ROOT_PASSWORD: 'root',
@@ -62,7 +62,7 @@ export class DatabaseService extends AbstractService {
         this.envKey,
         new Variable(
           DatabaseService.CONSTANTS.DATABASE_URL,
-          '"mysql://root:root@db:3306/db?serverVersion=11.2&charset=utf8mb4"',
+          '"mysql://root:root@db:3306/db?serverVersion=11.5.2&charset=utf8mb4"',
         ),
       ),
     )

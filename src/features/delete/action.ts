@@ -27,7 +27,7 @@ const FILTER_FILES: { name: string; patterns: string[] }[] = [
   {
     name: '.env.local',
     patterns: [
-      'DATABASE_URL=mysql://root:root@db:3306/db?serverVersion=11.2&charset=utf8mb4',
+      'DATABASE_URL=mysql://root:root@db:3306/db?serverVersion=11.5.2&charset=utf8mb4',
       'MAILER_DSN=smtp://mail:1025',
       'MAIL_ADMIN=admin@local.host',
       'WEB_PORT=',
