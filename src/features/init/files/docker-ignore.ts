@@ -15,6 +15,12 @@ export function getDockerIgnore() {
     .appendLine('.env.*')
     .appendLine('public/build')
     .appendLine('public/bundles')
+    .appendLine('sf')
+    .appendLine('README.md')
+    .appendLine('.idea')
+    .appendLine('.vscode')
+    .appendLine('.php-cs-fixer.dist.php')
+    .appendLine('phpstan.dist.neon')
 
   return builder.toString()
 }
