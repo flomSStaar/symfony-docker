@@ -82,7 +82,26 @@ export class ComposeBuilder {
     const envNode = service.get(ComposeBuilder.CONSTANTS.ENVIRONMENT)
 
     if (!envNode || isMap(envNode)) {
-      this.addInMap(service, ComposeBuilder.CONSTANTS.ENVIRONMENT, new Pair(key, value))
+      const node = service.get(ComposeBuilder.CONSTANTS.ENVIRONMENT)
+      const newValue = new Pair(key, value)
+
+      if (node) {
+        // the key exists
+        if (node instanceof YAMLMap) {
+          // add the key to the existing map
+          node.add(newValue)
+        } else {
+          // cannot add the key to the map
+          // console.warn('cannot add the key to the map')
+        }
+      } else {
+        // the key does not exist, so create a new map
+        const newMap = new YAMLMap()
+        // add the value
+        newMap.add(newValue)
+        // add the pair in the service
+        service.add(new Pair(ComposeBuilder.CONSTANTS.ENVIRONMENT, newMap))
+      }
     } else if (isSeq(envNode)) {
       this.addInSequence(service, ComposeBuilder.CONSTANTS.ENVIRONMENT, `${key}=${value}`)
     }
@@ -95,13 +114,16 @@ export class ComposeBuilder {
     const envNode = service.get(ComposeBuilder.CONSTANTS.ENVIRONMENT)
 
     if (!envNode || isMap(envNode)) {
-      this.removeInMap(service, ComposeBuilder.CONSTANTS.ENVIRONMENT, key)
+      const node = service.get(ComposeBuilder.CONSTANTS.ENVIRONMENT)
+      if (node instanceof YAMLMap) {
+        node.delete(key)
+      }
     } else if (isSeq(envNode)) {
       this.removeInSequence(service, ComposeBuilder.CONSTANTS.ENVIRONMENT, `${key}=${value}`)
     }
   }
 
-  private addInSequence(service: YAMLMap, nodeKey: string, value: string): void {
+  protected addInSequence(service: YAMLMap, nodeKey: string, value: string): void {
     const node = service.get(nodeKey)
 
     if (node) {
@@ -120,7 +142,7 @@ export class ComposeBuilder {
     }
   }
 
-  private removeInSequence(service: YAMLMap, nodeKey: string, value: string) {
+  protected removeInSequence(service: YAMLMap, nodeKey: string, value: string) {
     const node = service.get(nodeKey)
     if (!node) return
 
@@ -132,40 +154,6 @@ export class ComposeBuilder {
       }
     } else {
       // console.warn('cannot remove the key in the sequence')
-    }
-  }
-
-  private addInMap(service: YAMLMap, nodeKey: string, value: Pair): void {
-    const node = service.get(nodeKey)
-
-    if (node) {
-      // the key exists
-      if (node instanceof YAMLMap) {
-        // add the key to the existing map
-        node.add(value)
-      } else {
-        // cannot add the key to the map
-        // console.warn('cannot add the key to the map')
-      }
-    } else {
-      // the key does not exist, so create a new map
-      const newMap = new YAMLMap()
-      // add the value
-      newMap.add(value)
-      // add the pair in the service
-      service.add(new Pair(nodeKey, newMap))
-    }
-  }
-
-  private removeInMap(service: YAMLMap, nodeKey: string, value: string) {
-    const node = service.get(nodeKey)
-    if (!node) return
-
-    if (node instanceof YAMLMap) {
-      // add the key to the existing map
-      node.delete(value)
-    } else {
-      // console.warn('cannot remove the key in the map')
     }
   }
 
