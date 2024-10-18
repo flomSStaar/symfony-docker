@@ -36,13 +36,11 @@ export class NodeService extends AbstractService {
     builder.removeBlock(this.envKey)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  addToEnvLocal(builder: EnvBuilder) {
+  addToEnvLocal() {
     // Nothing
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  removeToEnvLocal(builder: EnvBuilder) {
+  removeToEnvLocal() {
     // Nothing
   }
 }

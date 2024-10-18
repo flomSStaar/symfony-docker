@@ -12,21 +12,24 @@ export class MariadbService extends AbstractService {
     ENV_KEY: 'doctrine/doctrine-bundle',
     DB_PORT: 'DB_PORT',
     DATABASE_URL: 'DATABASE_URL',
+    ENV_MARIADB_USER: 'root',
+    ENV_MARIADB_PASSWORD: 'root',
+    ENV_MARIADB_DB: 'db',
   }
 
   constructor() {
     super('MariaDB', true, MariadbService.CONSTANTS.COMPOSE_KEY, MariadbService.CONSTANTS.ENV_KEY)
   }
 
-  private static COMPOSE_VOLUME_KEY: string = 'mariadb-data'
+  private static readonly COMPOSE_VOLUME_KEY: string = 'mariadb-data'
 
   addToCompose(builder: ComposeBuilder): void {
     builder.addService(this.composeKey, {
       image: 'mariadb:11.5.2',
       ports: [`$\{${MariadbService.CONSTANTS.DB_PORT}:-3306}:3306`],
       environment: {
-        MARIADB_ROOT_PASSWORD: 'root',
-        MARIADB_DATABASE: 'db',
+        MARIADB_ROOT_PASSWORD: MariadbService.CONSTANTS.ENV_MARIADB_PASSWORD,
+        MARIADB_DATABASE: MariadbService.CONSTANTS.ENV_MARIADB_DB,
         TZ: 'Europe/Paris',
       },
       volumes: [`${MariadbService.COMPOSE_VOLUME_KEY}:/var/lib/mysql`],
@@ -45,13 +48,11 @@ export class MariadbService extends AbstractService {
     builder.removeDependsOn(PhpService.CONSTANTS.COMPOSE_KEY, this.composeKey)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  addToEnv(builder: EnvBuilder) {
+  addToEnv() {
     // Nothing
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  removeToEnv(builder: EnvBuilder) {
+  removeToEnv() {
     // Nothing
   }
 
@@ -62,7 +63,7 @@ export class MariadbService extends AbstractService {
         this.envKey,
         new Variable(
           MariadbService.CONSTANTS.DATABASE_URL,
-          '"mysql://root:root@db:3306/db?serverVersion=11.5.2&charset=utf8mb4"',
+          `"mysql://${MariadbService.CONSTANTS.ENV_MARIADB_USER}:${MariadbService.CONSTANTS.ENV_MARIADB_PASSWORD}@db:3306/${MariadbService.CONSTANTS.ENV_MARIADB_DB}?serverVersion=11.5.2&charset=utf8mb4"`,
         ),
       ),
     )

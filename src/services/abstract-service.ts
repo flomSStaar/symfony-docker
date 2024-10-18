@@ -2,7 +2,7 @@ import { ComposeBuilder } from '@/utils/compose-builder'
 import type { EnvBuilder } from '@/utils/env-builder'
 
 export abstract class AbstractService {
-  public static SYMFONY_DOCKER_ENV_KEY = 'symfony/docker'
+  public static readonly SYMFONY_DOCKER_ENV_KEY = 'symfony/docker'
 
   public readonly name: string
   public readonly removable: boolean

@@ -27,7 +27,7 @@ const FILTER_FILES: { name: string; patterns: string[] }[] = [
   {
     name: '.env.local',
     patterns: [
-      'DATABASE_URL=mysql://root:root@db:3306/db?serverVersion=11.5.2&charset=utf8mb4',
+      'DATABASE_URL=',
       'MAILER_DSN=smtp://mail:1025',
       'MAIL_ADMIN=admin@local.host',
       'WEB_PORT=',
@@ -68,7 +68,7 @@ export async function deleteAction() {
       (async () => {
         try {
           const filepath = `${projectPath}/${value.name}`
-          const file = await Bun.file(filepath)
+          const file = Bun.file(filepath)
           const text = await file.text()
           const patterns = value.patterns
 

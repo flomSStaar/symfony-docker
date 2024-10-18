@@ -5,7 +5,7 @@ import { Variable } from '@/utils/env/variable'
 import { StringBuilder } from '@/utils/string-builder'
 
 export class EnvBuilder {
-  private blocks: Map<string, BlockSection>
+  private readonly blocks: Map<string, BlockSection>
 
   constructor(blocks = new Map<string, BlockSection>()) {
     this.blocks = blocks

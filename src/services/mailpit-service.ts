@@ -12,7 +12,7 @@ export class MailpitService extends AbstractService {
     MAILER_DSN: 'MAILER_DSN',
   }
 
-  private static COMPOSE_VOLUME_KEY: string = 'mail-data'
+  private static readonly COMPOSE_VOLUME_KEY: string = 'mail-data'
 
   constructor() {
     super('Mailpit', true, MailpitService.CONSTANTS.COMPOSE_KEY, MailpitService.CONSTANTS.ENV_KEY)
@@ -38,13 +38,11 @@ export class MailpitService extends AbstractService {
     builder.removeService(this.composeKey)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  addToEnv(builder: EnvBuilder) {
+  addToEnv() {
     // Nothing
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  removeToEnv(builder: EnvBuilder) {
+  removeToEnv() {
     // Nothing
   }
 

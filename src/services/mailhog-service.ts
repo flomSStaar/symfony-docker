@@ -27,13 +27,11 @@ export class MailhogService extends AbstractService {
     builder.removeService(this.composeKey)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  addToEnv(builder: EnvBuilder) {
+  addToEnv() {
     // Nothing
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  removeToEnv(builder: EnvBuilder) {
+  removeToEnv() {
     // Nothing
   }
 

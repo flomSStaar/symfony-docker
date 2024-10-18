@@ -7,7 +7,7 @@ export class StringBuilder {
    * @param chain Chain to add in the builder.
    * @return The instance builder to chain methods.
    */
-  append(chain: string): StringBuilder {
+  append(chain: string): this {
     this.builder += chain
     return this
   }
@@ -18,7 +18,7 @@ export class StringBuilder {
    * @param chain Chain to add in the builder.
    * @return The instance builder to chain methods.
    */
-  appendLine(chain: string): StringBuilder {
+  appendLine(chain: string): this {
     this.builder += chain
     this.newLine()
     return this
@@ -29,7 +29,7 @@ export class StringBuilder {
    *
    * @return The instance builder to chain methods.
    */
-  newLine(): StringBuilder {
+  newLine(): this {
     this.builder += '\n'
     return this
   }

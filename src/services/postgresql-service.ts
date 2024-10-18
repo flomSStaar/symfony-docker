@@ -1,10 +1,10 @@
-import { AbstractService } from "@/services/abstract-service";
-import { ComposeBuilder } from "@/utils/compose-builder";
-import { BlockRow } from "@/utils/env/block-row";
-import { NamedBlockSection } from "@/utils/env/named-block-section";
-import { Variable } from "@/utils/env/variable";
-import { EnvBuilder } from "@/utils/env-builder";
-import { PhpService } from "@/services/php-service";
+import { AbstractService } from '@/services/abstract-service'
+import { ComposeBuilder } from '@/utils/compose-builder'
+import { BlockRow } from '@/utils/env/block-row'
+import { NamedBlockSection } from '@/utils/env/named-block-section'
+import { Variable } from '@/utils/env/variable'
+import { EnvBuilder } from '@/utils/env-builder'
+import { PhpService } from '@/services/php-service'
 
 export class PostgresqlService extends AbstractService {
   public static readonly CONSTANTS = {
@@ -26,7 +26,7 @@ export class PostgresqlService extends AbstractService {
     );
   }
 
-  private static COMPOSE_VOLUME_KEY: string = "postgres-data";
+  private static readonly COMPOSE_VOLUME_KEY: string = "postgres-data";
 
   addToCompose(builder: ComposeBuilder): void {
     builder.addService(this.composeKey, {
@@ -55,13 +55,11 @@ export class PostgresqlService extends AbstractService {
     builder.removeDependsOn(PhpService.CONSTANTS.COMPOSE_KEY, this.composeKey);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  addToEnv(builder: EnvBuilder) {
+  addToEnv() {
     // Nothing
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  removeToEnv(builder: EnvBuilder) {
+  removeToEnv() {
     // Nothing
   }
 
