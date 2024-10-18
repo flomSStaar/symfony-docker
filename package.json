@@ -26,6 +26,7 @@
     "dev": "bun src/index.ts",
     "build": "bun build src/index.ts --compile --minify --outfile=build/sfd",
     "clean": "rm -rf build",
-    "lint": "eslint src --fix"
+    "lint": "eslint src --fix",
+    "coverage": "bun test --coverage --coverage-reporter=lcov"
   }
 }

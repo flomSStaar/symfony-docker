@@ -1,24 +1,32 @@
-name: Build
+name: Sonarqube
 
 on:
   push:
     branches:
       - main
 
-
 jobs:
   build:
-    name: Build and analyze
+    name: Code analysis and coverage report
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 'latest'
+      # Generate coverage report
+      - run: bun run coverage
       - uses: sonarsource/sonarqube-scan-action@v3
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args:
+            -Dsonar.
+            -Dsonar.tests="src/tests"
       # If you wish to fail your job when the Quality Gate is red, uncomment the
       # following lines. This would typically be used to fail a deployment.
       # - uses: sonarsource/sonarqube-quality-gate-action@master
