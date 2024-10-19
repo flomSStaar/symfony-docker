@@ -1,7 +1,13 @@
 import { logger } from '@/utils/logger'
-import { describe, expect, it, spyOn } from 'bun:test'
+import { afterEach, describe, expect, it, spyOn } from 'bun:test'
 
 describe('Logger', () => {
+  const consoleLogSpy = spyOn(console, 'log').mockImplementation(() => {})
+
+  afterEach(() => {
+    consoleLogSpy.mockReset()
+  })
+
   it('should have the methods i, success, e', () => {
     expect(logger.i).toBeDefined()
     expect(logger.success).toBeDefined()
@@ -9,7 +15,6 @@ describe('Logger', () => {
   })
 
   it('should log info message', () => {
-    const spy = spyOn(console, 'log').mockImplementation(() => {})
     const loggerSpy = spyOn(logger, 'i')
 
 
@@ -18,26 +23,18 @@ describe('Logger', () => {
     expect(loggerSpy).toHaveBeenCalledTimes(1)
     expect(loggerSpy).toHaveBeenCalledWith('info message')
 
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith("\u001b[1m\u001b[37minfo message\u001b[39m\u001b[22m")
-
-    spy.mockRestore()
-    loggerSpy.mockRestore()
+    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
+    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[1m\u001b[37minfo message\u001b[39m\u001b[22m")
   })
 
   it('should log info message with bold false', () => {
-    const spy = spyOn(console, 'log').mockImplementation(() => {})
-
     logger.i('info message', false)
 
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith("\u001b[37minfo message\u001b[39m")
-
-    spy.mockRestore()
+    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
+    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[37minfo message\u001b[39m")
   })
 
   it('should log success message', () => {
-    const spy = spyOn(console, 'log').mockImplementation(() => {})
     const loggerSpy = spyOn(logger, 'success')
 
     logger.success('success message')
@@ -45,26 +42,19 @@ describe('Logger', () => {
     expect(loggerSpy).toHaveBeenCalledTimes(1)
     expect(loggerSpy).toHaveBeenCalledWith('success message')
 
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith("\u001b[1m\u001b[32msuccess message\u001b[39m\u001b[22m")
+    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
+    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[1m\u001b[32msuccess message\u001b[39m\u001b[22m")
 
-    spy.mockRestore()
-    loggerSpy.mockRestore()
   })
 
   it('should log success message with bold false', () => {
-    const spy = spyOn(console, 'log').mockImplementation(() => {})
-
     logger.success('success message', false)
 
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith("\u001b[32msuccess message\u001b[39m")
-
-    spy.mockRestore()
+    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
+    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[32msuccess message\u001b[39m")
   })
 
   it('should log error message', () => {
-    const spy = spyOn(console, 'log').mockImplementation(() => {})
     const loggerSpy = spyOn(logger, 'e')
 
     logger.e('error message')
@@ -72,21 +62,14 @@ describe('Logger', () => {
     expect(loggerSpy).toHaveBeenCalledTimes(1)
     expect(loggerSpy).toHaveBeenCalledWith('error message')
 
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith("\u001b[1m\u001b[31merror message\u001b[39m\u001b[22m")
-
-    spy.mockRestore()
-    loggerSpy.mockRestore()
+    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
+    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[1m\u001b[31merror message\u001b[39m\u001b[22m")
   })
 
   it('should log error message with bold false', () => {
-    const spy = spyOn(console, 'log').mockImplementation(() => {})
-
     logger.e('error message', false)
 
-    expect(spy).toHaveBeenCalledTimes(1)
-    expect(spy).toHaveBeenCalledWith("\u001b[31merror message\u001b[39m")
-
-    spy.mockRestore()
+    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
+    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[31merror message\u001b[39m")
   })
 })
