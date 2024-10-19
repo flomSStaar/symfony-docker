@@ -22,6 +22,7 @@ describe('Logger', () => {
     expect(spy).toHaveBeenCalledWith("\u001b[1m\u001b[37minfo message\u001b[39m\u001b[22m")
 
     spy.mockRestore()
+    loggerSpy.mockRestore()
   })
 
   it('should log info message with bold false', () => {
@@ -29,7 +30,7 @@ describe('Logger', () => {
 
     logger.i('info message', false)
 
-    expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith("\u001b[37minfo message\u001b[39m")
 
     spy.mockRestore()
@@ -44,10 +45,11 @@ describe('Logger', () => {
     expect(loggerSpy).toHaveBeenCalledTimes(1)
     expect(loggerSpy).toHaveBeenCalledWith('success message')
 
-    expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith("\u001b[1m\u001b[32msuccess message\u001b[39m\u001b[22m")
 
     spy.mockRestore()
+    loggerSpy.mockRestore()
   })
 
   it('should log success message with bold false', () => {
@@ -55,7 +57,7 @@ describe('Logger', () => {
 
     logger.success('success message', false)
 
-    expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith("\u001b[32msuccess message\u001b[39m")
 
     spy.mockRestore()
@@ -70,10 +72,11 @@ describe('Logger', () => {
     expect(loggerSpy).toHaveBeenCalledTimes(1)
     expect(loggerSpy).toHaveBeenCalledWith('error message')
 
-    expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith("\u001b[1m\u001b[31merror message\u001b[39m\u001b[22m")
 
     spy.mockRestore()
+    loggerSpy.mockRestore()
   })
 
   it('should log error message with bold false', () => {
@@ -81,7 +84,7 @@ describe('Logger', () => {
 
     logger.e('error message', false)
 
-    expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith("\u001b[31merror message\u001b[39m")
 
     spy.mockRestore()
