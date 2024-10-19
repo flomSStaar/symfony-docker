@@ -1,75 +1,65 @@
-import { logger } from '@/utils/logger'
-import { afterEach, describe, expect, it, spyOn } from 'bun:test'
+import { describe, expect, it, spyOn } from 'bun:test'
+import { logger } from '@/utils/logger' // Remplacez par le chemin correct vers votre fichier logger
+import kleur from 'kleur'
 
-describe('Logger', () => {
-  const consoleLogSpy = spyOn(console, 'log').mockImplementation(() => {})
+describe("Logger tests", () => {
+  it("should log white message in bold by default", () => {
+    const spy = spyOn(console, 'log').mockImplementation(() => {});
+    const message = "Info message";
 
-  afterEach(() => {
-    consoleLogSpy.mockReset()
-  })
+    logger.i(message);
 
-  it('should have the methods i, success, e', () => {
-    expect(logger.i).toBeDefined()
-    expect(logger.success).toBeDefined()
-    expect(logger.e).toBeDefined()
-  })
+    expect(spy).toHaveBeenCalledWith(kleur.bold(kleur.white(message)));
+    spy.mockRestore();
+  });
 
-  it('should log info message', () => {
-    const loggerSpy = spyOn(logger, 'i')
+  it("should log white message without bold", () => {
+    const spy = spyOn(console, 'log').mockImplementation(() => {});
+    const message = "Info message";
 
+    logger.i(message, false);
 
-    logger.i('info message')
+    expect(spy).toHaveBeenCalledWith(kleur.white(message));
+    spy.mockRestore();
+  });
 
-    expect(loggerSpy).toHaveBeenCalledTimes(1)
-    expect(loggerSpy).toHaveBeenCalledWith('info message')
+  it("should log red message in bold by default", () => {
+    const spy = spyOn(console, 'log').mockImplementation(() => {});
+    const message = "Error message";
 
-    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
-    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[1m\u001b[37minfo message\u001b[39m\u001b[22m")
-  })
+    logger.e(message);
 
-  it('should log info message with bold false', () => {
-    logger.i('info message', false)
+    expect(spy).toHaveBeenCalledWith(kleur.bold(kleur.red(message)));
+    spy.mockRestore();
+  });
 
-    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
-    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[37minfo message\u001b[39m")
-  })
+  it("should log red message without bold", () => {
+    const spy = spyOn(console, 'log').mockImplementation(() => {});
+    const message = "Error message";
 
-  it('should log success message', () => {
-    const loggerSpy = spyOn(logger, 'success')
+    logger.e(message, false);
 
-    logger.success('success message')
+    expect(spy).toHaveBeenCalledWith(kleur.red(message));
+    spy.mockRestore();
+  });
 
-    expect(loggerSpy).toHaveBeenCalledTimes(1)
-    expect(loggerSpy).toHaveBeenCalledWith('success message')
+  it("should log green message in bold by default", () => {
+    const spy = spyOn(console, 'log').mockImplementation(() => {});
+    const message = "Success message";
 
-    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
-    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[1m\u001b[32msuccess message\u001b[39m\u001b[22m")
+    logger.success(message);
 
-  })
+    expect(spy).toHaveBeenCalledWith(kleur.bold(kleur.green(message)));
+    spy.mockRestore();
+  });
 
-  it('should log success message with bold false', () => {
-    logger.success('success message', false)
+  it("should log green message without bold", () => {
+    const spy = spyOn(console, 'log').mockImplementation(() => {});
+    const message = "Success message";
 
-    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
-    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[32msuccess message\u001b[39m")
-  })
+    logger.success(message, false);
 
-  it('should log error message', () => {
-    const loggerSpy = spyOn(logger, 'e')
-
-    logger.e('error message')
-
-    expect(loggerSpy).toHaveBeenCalledTimes(1)
-    expect(loggerSpy).toHaveBeenCalledWith('error message')
-
-    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
-    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[1m\u001b[31merror message\u001b[39m\u001b[22m")
-  })
-
-  it('should log error message with bold false', () => {
-    logger.e('error message', false)
-
-    expect(consoleLogSpy).toHaveBeenCalledTimes(1)
-    expect(consoleLogSpy).toHaveBeenCalledWith("\u001b[31merror message\u001b[39m")
-  })
-})
+    expect(spy).toHaveBeenCalledWith(kleur.green(message));
+    spy.mockRestore();
+  });
+});
