@@ -9,7 +9,7 @@ describe('Logger', () => {
   })
 
   it('should log info message', () => {
-    const spy = spyOn(console, 'log')
+    const spy = spyOn(console, 'log').mockImplementation(() => {})
     const loggerSpy = spyOn(logger, 'i')
 
 
@@ -25,7 +25,7 @@ describe('Logger', () => {
   })
 
   it('should log info message with bold false', () => {
-    const spy = spyOn(console, 'log')
+    const spy = spyOn(console, 'log').mockImplementation(() => {})
 
     logger.i('info message', false)
 
@@ -36,7 +36,7 @@ describe('Logger', () => {
   })
 
   it('should log success message', () => {
-    const spy = spyOn(console, 'log')
+    const spy = spyOn(console, 'log').mockImplementation(() => {})
     const loggerSpy = spyOn(logger, 'success')
 
     logger.success('success message')
@@ -51,7 +51,7 @@ describe('Logger', () => {
   })
 
   it('should log success message with bold false', () => {
-    const spy = spyOn(console, 'log')
+    const spy = spyOn(console, 'log').mockImplementation(() => {})
 
     logger.success('success message', false)
 
@@ -62,7 +62,7 @@ describe('Logger', () => {
   })
 
   it('should log error message', () => {
-    const spy = spyOn(console, 'log')
+    const spy = spyOn(console, 'log').mockImplementation(() => {})
     const loggerSpy = spyOn(logger, 'e')
 
     logger.e('error message')
@@ -77,7 +77,7 @@ describe('Logger', () => {
   })
 
   it('should log error message with bold false', () => {
-    const spy = spyOn(console, 'log')
+    const spy = spyOn(console, 'log').mockImplementation(() => {})
 
     logger.e('error message', false)
 
