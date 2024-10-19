@@ -28,5 +28,16 @@
     "clean": "rm -rf build",
     "lint": "eslint src --fix",
     "coverage": "bun test --coverage --coverage-reporter=lcov"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+    "endOfLine": "lf"
   }
 }
