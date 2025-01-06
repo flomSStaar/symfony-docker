@@ -58,6 +58,10 @@ export class EnvBuilder {
   }
 
   toString(): string {
+    if (this.blocks.size === 0) {
+      return ''
+    }
+
     const builder = new StringBuilder()
     for (const [, value] of this.blocks.entries()) {
       builder.appendLine(value.toString()).newLine()

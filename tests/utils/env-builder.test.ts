@@ -14,6 +14,10 @@ describe('EnvBuilder', () => {
     expect(envBuilder).toBeInstanceOf(EnvBuilder)
   })
 
+  it('should be empty initially', () => {
+    expect(envBuilder.toString()).toBe('')
+  })
+
   it('should add a block', () => {
     const block = new NamedBlockSection('BLOCK')
 
